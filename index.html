@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Info Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        header {
+            background-color: #2d3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .site-info {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .site-info div {
+            background-color: #f9fafc;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            width: 30%;
+        }
+        .status {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+        .status.offline {
+            color: #f44336;
+        }
+        .info-label {
+            font-size: 14px;
+            color: #888;
+            margin-top: 10px;
+        }
+        footer {
+            background-color: #2d3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>Website Status Dashboard</header>
+
+        <div class="site-info">
+            <div>
+                <div class="status">Online</div>
+                <div class="info-label">Status</div>
+            </div>
+
+            <div>
+                <div id="ip-address" class="status">Fetching IP...</div>
+                <div class="info-label">Client's IP</div>
+            </div>
+
+            <div>
+                <div id="browser-info" class="status">Fetching Browser Info...</div>
+                <div class="info-label">Browser</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Site Monitoring
+    </footer>
+
+    <script>
+        // Fetch client's IP address using an external API
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ip-address').textContent = data.ip;
+            })
+            .catch(error => {
+                document.getElementById('ip-address').textContent = 'Unable to fetch IP';
+            });
+
+        // Fetch browser information
+        const browserInfo = navigator.userAgent;
+        document.getElementById('browser-info').textContent = browserInfo;
+    </script>
+
+</body>
+</html>
